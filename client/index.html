@@ -4,11 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-
+    <div id="auth-view">
+        <h1>Inloggning</h1>
+        <input id="username" type="text" placeholder="Användarnamn">
+        <input id="password" type="password" placeholder="Lösenord">
+        <button onclick="login()">Logga in</button>
+        <button onclick="register()">Registrera</button>
+        <p id="msg"></p>
+    </div>
+    <div id="dashboard">
+        <h1>Dashboard</h1>
+        <p id="welcome"></p>
+        <ul id="data-list"></ul>
+        <button onclick="logout()">Logga ut</button>
+    </div>
+    <script src="client.js"></script>
 </body>
 
 </html>
