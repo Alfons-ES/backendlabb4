@@ -37,6 +37,17 @@ function authMiddleware(req, res, next) {
 }
 
 // Login
+app.post('/api/register', async (req, res) => {
+    const { username, password } = req.body;
+    console.log("Register försök:", username);
+
+    const hashed = await bcrypt.hash(password, 10);
+    const user = new User({ username, password: hashed });
+    await user.save();
+
+    res.json({ message: "Konto skapat!" });
+});
+
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -60,7 +71,7 @@ app.post('/api/login', async (req, res) => {
 app.get('/api/protected', authMiddleware, (req, res) => {
     res.json({
         message: "Välkommen " + req.user.username + "!",
-        data: ["hemlighet1", "hemlighet2"]
+        data: ["blabla", "blabla"]
     });
 });
 
