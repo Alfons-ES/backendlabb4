@@ -55,3 +55,15 @@ app.post('/api/login', async (req, res) => {
     const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token: token });
 });
+
+
+app.get('/api/protected', authMiddleware, (req, res) => {
+    res.json({
+        message: "Välkommen " + req.user.username + "!",
+        data: ["hemlighet1", "hemlighet2"]
+    });
+});
+
+app.listen(process.env.PORT, () => {
+    console.log("Servern körs på port " + process.env.PORT);
+});
