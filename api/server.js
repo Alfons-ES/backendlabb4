@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI);
+console.log("Ansluten till databasen...");
 
 //databasen
 const User = mongoose.model('User', new mongoose.Schema({
@@ -21,11 +22,16 @@ const User = mongoose.model('User', new mongoose.Schema({
 //kontrollera token
 function authMiddleware(req, res, next) {
     const token = req.headers['authorization']?.split(' ')[1];
-    if (!token) return res.status(401).json({ message: 'Ingen token' });
+
+    if (!token) {
+        return res.send("Du måste logga in!");
+    }
+
     try {
-        req.user = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
         next();
-    } catch {
-        res.status(403).json({ message: 'Ogiltig token' });
+    } catch (err) {
+        res.send("Ogiltig token");
     }
 }
