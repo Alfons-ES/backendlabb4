@@ -35,3 +35,23 @@ function authMiddleware(req, res, next) {
         res.send("Ogiltig token");
     }
 }
+
+// Login
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    const user = await User.findOne({ username: username });
+
+    if (!user) {
+        return res.send("Fel användarnamn eller lösenord");
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+        return res.send("Fel användarnamn eller lösenord");
+    }
+
+    const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token: token });
+});
