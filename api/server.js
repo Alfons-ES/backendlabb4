@@ -9,6 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+//databasuppkoppling
 mongoose.connect(process.env.MONGO_URI);
 console.log("Ansluten till databasen...");
 
@@ -19,7 +20,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     account_created: { type: Date, default: Date.now }
 }));
 
-//kontrollera token
+//kontrollera token - kolla att det finns en bearer token och verifierar om den är giltlig med .env
 function authMiddleware(req, res, next) {
     const token = req.headers['authorization']?.split(' ')[1];
 
@@ -36,7 +37,7 @@ function authMiddleware(req, res, next) {
     }
 }
 
-// Login
+// register. tar emot username och password från frontenden, hashar lösen med bcrypt och skapar i mongodb
 app.post('/api/register', async (req, res) => {
     const { username, password } = req.body;
     console.log("Register försök:", username);
@@ -48,6 +49,7 @@ app.post('/api/register', async (req, res) => {
     res.json({ message: "Konto skapat!" });
 });
 
+//hittar användaren i databasen och jämför med lösenord med det hashade lösenordet, om det är korrekt får användaren en jwt token i en timme.
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
 
@@ -68,12 +70,14 @@ app.post('/api/login', async (req, res) => {
 });
 
 
+//skyddar routern, om token är giltlig får man ett välkomstmeddelande
 app.get('/api/protected', authMiddleware, (req, res) => {
     res.json({
         message: "Välkommen " + req.user.username + "!",
     });
 });
 
+//starta servern
 app.listen(process.env.PORT, () => {
     console.log("Servern körs på port " + process.env.PORT);
 });
