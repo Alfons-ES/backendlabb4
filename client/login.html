@@ -15,7 +15,7 @@
         <input id="username" type="text" placeholder="Användarnamn">
         <input id="password" type="password" placeholder="Lösenord">
         <button onclick="login()">Logga in</button>
-        <button onclick="register()">Registrera</button>
+
         <p id="msg"></p>
     </div>
 
@@ -26,32 +26,32 @@
 
         <hr>
 
-        <h2>Hantera Meny / Arbetserfarenheter</h2>
+        <h2>Hantera Meny</h2>
 
-        <form id="item-form">
-            <h3>Lägg till ny erfarenhet</h3>
-            <input type="text" id="name" placeholder="Namn / Titel" required>
+        <form id="itemform">
+            <h3>Lägg till ny Item</h3>
+            <input type="text" id="name" placeholder="Namn" required>
             <textarea id="description" placeholder="Beskrivning" required></textarea>
             <button type="submit">Lägg till</button>
             <p id="message"></p>
         </form>
 
 
-        <h3>Befintliga erfarenheter</h3>
-        <div id="list"></div>
+        <h3>Befintliga Meny</h3>
+        <div id="datalist"></div>
 
 
         <div id="edit-form-container" style="display: none;">
-            <h3>Redigera erfarenhet</h3>
-            <input type=" hidden" id="edit-id">
-            <input type="text" id="edit-name" placeholder="Namn / Titel">
+            <h3>Redigera item</h3>
+            <input type="hidden" id="edit-id">
+            <input type="text" id="edit-name" placeholder="Namn">
             <textarea id="edit-description" placeholder="Beskrivning"></textarea>
             <button onclick="submitUpdate()">Spara ändringar</button>
             <button onclick="closeEditForm()">Avbryt</button>
         </div>
     </div>
 
-    <script src="client.js"></script>
+    <script src="client.js" defer></script>
 </body>
 
 </html>

@@ -24,7 +24,7 @@
             container.innerHTML = '<p>Laddar meny...</p>';
 
             try {
-                const res = await fetch('http://localhost:5000/meny');
+                const res = await fetch('http://localhost:7777/meny');
 
                 if (!res.ok) throw new Error('Kunde inte hämta data');
 

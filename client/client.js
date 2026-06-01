@@ -1,8 +1,10 @@
-const API = 'http://localhost:5000/api';
+const API = 'http://localhost:7777/api';
 
 // Kolla om redan inloggad
-if (sessionStorage.getItem('token')) showDashboard();
-
+window.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem('token')) showDashboard();
+});
+/*
 async function register() {
     const res = await fetch(API + '/register', {
         method: 'POST',
@@ -12,7 +14,7 @@ async function register() {
     const data = await res.json();
     document.getElementById('msg').textContent = data.message;
 }
-
+*/
 async function login() {
     const res = await fetch(API + '/login', {
         method: 'POST',
@@ -39,13 +41,8 @@ async function showDashboard() {
     document.getElementById('dashboard').style.display = 'block';
     document.getElementById('welcome').textContent = data.message;
 
-    const list = document.getElementById('data-list');
-    list.innerHTML = '';
-    data.data.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        list.appendChild(li);
-    });
+    const list = document.getElementById('datalist');
+    loaditems();
 }
 
 function logout() {
@@ -62,10 +59,10 @@ function getInputs() {
 }
 
 async function loaditems() {
-    const res = await fetch('http://localhost:5000/meny');
+    const res = await fetch('http://localhost:7777/meny');
     const data = await res.json();
     //hämta från servern
-    const container = document.getElementById('list');
+    const container = document.getElementById('datalist');
     container.innerHTML = '';
 
     data.forEach(exp => { //för varje id alltså item i databasen skapas en 
@@ -83,7 +80,7 @@ async function loaditems() {
 
 async function deleteitem(id) {
     if (confirm("Är du säker på att du vill ta bort?")) {
-        await fetch(`http://localhost:5000/meny/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:7777/meny/${id}`, { method: 'DELETE' });
         loaditems(); // refresh list
     }
 } //ta bort ett arbete, alltså itemt
@@ -91,7 +88,7 @@ async function deleteitem(id) {
 
 
 
-const form = document.getElementById('form');
+const form = document.getElementById('itemform');
 const message = document.getElementById('message');
 
 form.addEventListener('submit', async (e) => {// när användaren klickar submit kommer vi köra arrowfunctionen
@@ -110,7 +107,7 @@ form.addEventListener('submit', async (e) => {// när användaren klickar submit
     //
     // skickar datan till server med post
     try {
-        const res = await fetch('http://localhost:5000/meny', {
+        const res = await fetch('http://localhost:7777/meny', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, description })
@@ -119,6 +116,7 @@ form.addEventListener('submit', async (e) => {// när användaren klickar submit
         if (res.ok) { //om det funkade får man en alert. Vi resetar formen och stannar där om man vill fylla i mer
             alert("Item skapad!");
             form.reset();
+            loaditems();
         } else { //annars får man felmeddelande 
             const error = await res.json();
             message.textContent = error.message;
@@ -147,7 +145,7 @@ async function submitUpdate() {
     const description = document.getElementById('edit-description').value;
 
 
-    const res = await fetch(`http://localhost:5000/meny/${id}`, {
+    const res = await fetch(`http://localhost:7777/meny/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, description })
