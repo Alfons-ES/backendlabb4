@@ -1,16 +1,17 @@
 body {
-    font-family: sans-serif;
+    font-family: "Apple Chancery", "Lucida Handwriting", cursive;
     margin: 0;
     padding: 0;
-    background-color: #008C45;
+    background-image: linear-gradient(to right, #008C45 0%, #008C45 50%, #CD212A 50%, #CD212A 100%);
 }
 
 main {
 
-    background-color: white;
+    background-color: #F4F5F0;
     max-width: 800px;
     margin: 0px auto;
     padding: 0px 20px;
+    min-height: 100vh;
 }
 
 main h1 {
@@ -20,7 +21,7 @@ main h1 {
 }
 
 header {
-    background-color: brown;
+    background-color: rgb(59, 8, 8);
     margin-top: 0;
     color: white;
     padding: 40px;
@@ -46,7 +47,10 @@ input {
 
 button {
     padding: 10px 20px;
-    margin: 4px 4px 0 0;
+    margin: 10px;
+    background-color: #008C45;
+    border: none;
+    color: #F4F5F0;
     cursor: pointer;
 }
 

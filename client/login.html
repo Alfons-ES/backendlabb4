@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="stylemedarbetare.css">
 </head>
 
 <body>
-    <a href="om.html">&larr; Tillbaka</a>
+    <a href="om.html">← Tillbaka</a>
 
     <div id="auth-view">
         <h1>Inloggning</h1>
@@ -20,24 +20,23 @@
     </div>
 
     <div id="dashboard" style="display: none;">
-        <h1>Dashboard</h1>
-        <p id="welcome"></p>
+        <h1>Medarbetarportalen</h1>
         <button onclick="logout()">Logga ut</button>
+        <p id="welcome"></p>
+
 
         <hr>
-
-        <h2>Hantera Meny</h2>
 
         <form id="itemform">
             <h3>Lägg till ny Item</h3>
             <input type="text" id="name" placeholder="Namn" required>
-            <textarea id="description" placeholder="Beskrivning" required></textarea>
+            <input id="description" placeholder="Beskrivning" required></input>
             <button type="submit">Lägg till</button>
             <p id="message"></p>
         </form>
 
 
-        <h3>Befintliga Meny</h3>
+        <hr>
         <div id="datalist"></div>
 
 
@@ -45,7 +44,7 @@
             <h3>Redigera item</h3>
             <input type="hidden" id="edit-id">
             <input type="text" id="edit-name" placeholder="Namn">
-            <textarea id="edit-description" placeholder="Beskrivning"></textarea>
+            <input id="edit-description" placeholder="Beskrivning"></input>
             <button onclick="submitUpdate()">Spara ändringar</button>
             <button onclick="closeEditForm()">Avbryt</button>
         </div>

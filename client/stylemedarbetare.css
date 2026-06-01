@@ -1,0 +1,33 @@
+body {
+    font-family: sans-serif;
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 4px 4px 0 0;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+}
+
+#msg {
+    color: red;
+    margin-top: 10px;
+}
+
+#dashboard {
+    display: none;
+}
