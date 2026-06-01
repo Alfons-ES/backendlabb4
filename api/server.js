@@ -20,6 +20,12 @@ const User = mongoose.model('User', new mongoose.Schema({
     account_created: { type: Date, default: Date.now }
 }));
 
+const menySchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String, required: true }
+});
+
+
 //kontrollera token - kolla att det finns en bearer token och verifierar om den är giltlig med .env
 function authMiddleware(req, res, next) {
     const token = req.headers['authorization']?.split(' ')[1];
@@ -83,8 +89,8 @@ const meny = mongoose.model("meny", menySchema);
 // Alla jobb
 app.get("/meny", async (req, res) => {
     try {
-        const experiences = await meny.find();
-        res.json(experiences);
+        const items = await meny.find();
+        res.json(items);
     } catch (error) {
         res.status(500).json({ message: "Kunde inte hämta data" });
     }
@@ -93,9 +99,9 @@ app.get("/meny", async (req, res) => {
 // Ett jobb
 app.get("/meny/:id", async (req, res) => {
     try {
-        const experience = await meny.findById(req.params.id);
-        if (!experience) return res.status(404).json({ error: "Not found" });
-        res.json(experience);
+        const item = await meny.findById(req.params.id);
+        if (!item) return res.status(404).json({ error: "Not found" });
+        res.json(item);
     } catch (error) {
         res.status(400).json({ message: "Ogiltigt ID" });
     }
@@ -131,10 +137,10 @@ app.post("/meny", async (req, res) => {
     }
 
     try {
-        const newExperience = new meny(
+        const newitem = new meny(
             { name, description }
         );
-        const saved = await newExperience.save();
+        const saved = await newitem.save();
         res.status(201).json(saved);
     } catch (error) {
         res.status(500).json({ message: "Kunde inte lägga till arbetserfarenhet" });

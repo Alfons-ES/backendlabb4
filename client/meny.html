@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <title>Meny</title>
 </head>
-
 
 <body>
     <header>
@@ -14,8 +14,48 @@
         <a href="meny.html">Meny</a>
         <a href="om.html">Om oss</a>
     </header>
-    <h1>Meny</h1>
 
+    <h1>Meny</h1>
+    <div id="meny-list"></div>
+
+    <script>
+        async function loadMeny() {
+            const container = document.getElementById('meny-list');
+            container.innerHTML = '<p>Laddar meny...</p>';
+
+            try {
+                const res = await fetch('http://localhost:5000/meny');
+
+                if (!res.ok) throw new Error('Kunde inte hämta data');
+
+                const items = await res.json();
+
+                container.innerHTML = '';
+
+                if (items.length === 0) {
+                    container.innerHTML = '<p>Inga erfarenheter hittades ännu.</p>';
+                    return;
+                }
+
+                items.forEach(exp => {
+                    const item = document.createElement('div');
+                    item.className = 'meny-item';
+                    item.innerHTML = `
+                        <h1>${exp.name}</h1>
+                        <p>${exp.description}</p>
+                    `;
+                    container.appendChild(item);
+                });
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<p style="color: red;">Kunde inte ladda menyn. Är servern igång?</p>';
+            }
+        }
+
+        // Ladda menyn när sidan öppnas
+        window.onload = loadMeny;
+    </script>
 </body>
 
 </html>

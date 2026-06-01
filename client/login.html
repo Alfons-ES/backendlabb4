@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    <a href="om.html">&larr; Tillbaka</a>
+
     <div id="auth-view">
         <h1>Inloggning</h1>
         <input id="username" type="text" placeholder="Användarnamn">
@@ -16,12 +18,39 @@
         <button onclick="register()">Registrera</button>
         <p id="msg"></p>
     </div>
-    <div id="dashboard">
+
+    <div id="dashboard" style="display: none;">
         <h1>Dashboard</h1>
         <p id="welcome"></p>
-        <ul id="data-list"></ul>
         <button onclick="logout()">Logga ut</button>
+
+        <hr>
+
+        <h2>Hantera Meny / Arbetserfarenheter</h2>
+
+        <form id="item-form">
+            <h3>Lägg till ny erfarenhet</h3>
+            <input type="text" id="name" placeholder="Namn / Titel" required>
+            <textarea id="description" placeholder="Beskrivning" required></textarea>
+            <button type="submit">Lägg till</button>
+            <p id="message"></p>
+        </form>
+
+
+        <h3>Befintliga erfarenheter</h3>
+        <div id="list"></div>
+
+
+        <div id="edit-form-container" style="display: none;">
+            <h3>Redigera erfarenhet</h3>
+            <input type=" hidden" id="edit-id">
+            <input type="text" id="edit-name" placeholder="Namn / Titel">
+            <textarea id="edit-description" placeholder="Beskrivning"></textarea>
+            <button onclick="submitUpdate()">Spara ändringar</button>
+            <button onclick="closeEditForm()">Avbryt</button>
+        </div>
     </div>
+
     <script src="client.js"></script>
 </body>
 

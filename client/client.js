@@ -61,7 +61,7 @@ function getInputs() {
     };
 }
 
-async function loadExperiences() {
+async function loaditems() {
     const res = await fetch('http://localhost:5000/meny');
     const data = await res.json();
     //hämta från servern
@@ -70,23 +70,23 @@ async function loadExperiences() {
 
     data.forEach(exp => { //för varje id alltså item i databasen skapas en 
         const div = document.createElement('div');
-        div.className = 'experience';
+        div.className = 'item';
         div.innerHTML = `
     <h3>${exp.name}</h3>
     <p>${exp.description}</p>
-    <button class="delete-btn" onclick="deleteExperience('${exp._id}')">Ta bort</button>
+    <button class="delete-btn" onclick="deleteitem('${exp._id}')">Ta bort</button>
     <button class="edit-btn" onclick="openEditForm('${exp._id}', '${exp.name}', '${exp.description}')">Redigera</button>
 `;
         container.appendChild(div);
     });
 }
 
-async function deleteExperience(id) {
+async function deleteitem(id) {
     if (confirm("Är du säker på att du vill ta bort?")) {
         await fetch(`http://localhost:5000/meny/${id}`, { method: 'DELETE' });
-        loadExperiences(); // refresh list
+        loaditems(); // refresh list
     }
-} //ta bort ett arbete, alltså experiencet
+} //ta bort ett arbete, alltså itemt
 
 
 
@@ -155,7 +155,7 @@ async function submitUpdate() {
 
     if (res.ok) {
         closeEditForm();
-        loadExperiences(); // uppdatera listan
+        loaditems(); // uppdatera listan
     } else {
         const error = await res.json();
         alert(error.message);
