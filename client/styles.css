@@ -1,8 +1,38 @@
 body {
     font-family: sans-serif;
-    max-width: 400px;
-    margin: 60px auto;
-    padding: 0 20px;
+    margin: 0;
+    padding: 0;
+    background-color: #008C45;
+}
+
+main {
+
+    background-color: white;
+    max-width: 800px;
+    margin: 0px auto;
+    padding: 0px 20px;
+}
+
+main h1 {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+header {
+    background-color: brown;
+    margin-top: 0;
+    color: white;
+    padding: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+header a {
+    color: white;
+
 }
 
 input {

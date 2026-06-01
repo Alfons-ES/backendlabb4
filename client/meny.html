@@ -14,10 +14,10 @@
         <a href="meny.html">Meny</a>
         <a href="om.html">Om oss</a>
     </header>
-
-    <h1>Meny</h1>
-    <div id="meny-list"></div>
-
+    <main>
+        <h1>Meny</h1>
+        <div id="meny-list"></div>
+    </main>
     <script>
         async function loadMeny() {
             const container = document.getElementById('meny-list');
@@ -33,7 +33,7 @@
                 container.innerHTML = '';
 
                 if (items.length === 0) {
-                    container.innerHTML = '<p>Inga erfarenheter hittades ännu.</p>';
+                    container.innerHTML = '<p>Inget finns här än.</p>';
                     return;
                 }
 
