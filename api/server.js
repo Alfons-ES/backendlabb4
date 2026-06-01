@@ -73,7 +73,7 @@ app.post('/api/login', async (req, res) => {
 //skyddar routern, om token är giltlig får man ett välkomstmeddelande
 app.get('/api/protected', authMiddleware, (req, res) => {
     res.json({
-        message: "Välkommen " + req.user.username + "!",
+        message: "Välkommen " + req.user.username,
     });
 });
 
