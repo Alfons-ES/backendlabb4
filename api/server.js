@@ -77,6 +77,82 @@ app.get('/api/protected', authMiddleware, (req, res) => {
     });
 });
 
+
+const meny = mongoose.model("meny", menySchema);
+
+// Alla jobb
+app.get("/meny", async (req, res) => {
+    try {
+        const experiences = await meny.find();
+        res.json(experiences);
+    } catch (error) {
+        res.status(500).json({ message: "Kunde inte hämta data" });
+    }
+});
+
+// Ett jobb
+app.get("/meny/:id", async (req, res) => {
+    try {
+        const experience = await meny.findById(req.params.id);
+        if (!experience) return res.status(404).json({ error: "Not found" });
+        res.json(experience);
+    } catch (error) {
+        res.status(400).json({ message: "Ogiltigt ID" });
+    }
+});
+
+// Uppdatera
+app.put("/meny/:id", async (req, res) => {
+    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+
+    if (!companyname || !jobtitle || !location || !startdate || !description) {
+        return res.status(400).json({ message: "Fyll i alla fält." });
+    }
+
+    try {
+        const updated = await meny.findByIdAndUpdate(
+            req.params.id,
+            { companyname, jobtitle, location, startdate, enddate, description },
+            { returnDocument: 'after', runValidators: true }
+        );
+        if (!updated) return res.status(404).json({ message: "Hittades inte" });
+        res.json({ message: "Uppdaterad", data: updated });
+    } catch (error) {
+        res.status(500).json({ message: "Kunde inte uppdatera" });
+    }
+});
+
+// Lägg till arbete
+app.post("/meny", async (req, res) => {
+    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+
+    if (!companyname || !jobtitle || !location || !startdate || !enddate || !description) {
+        return res.status(400).json({ message: "Fyll i alla fält." });
+    }
+
+    try {
+        const newExperience = new meny(
+            { companyname, jobtitle, location, startdate, enddate, description }
+        );
+        const saved = await newExperience.save();
+        res.status(201).json(saved);
+    } catch (error) {
+        res.status(500).json({ message: "Kunde inte lägga till arbetserfarenhet" });
+    }
+});
+
+// Ta bort arbete
+app.delete("/meny/:id", async (req, res) => {
+    try {
+        const deleted = await meny.findByIdAndDelete(req.params.id);
+        if (!deleted) return res.status(404).json({ message: "Hittades inte" });
+        res.json({ message: "Deleted" });
+    } catch (error) {
+        res.status(400).json({ message: "Ogiltigt ID" });
+    }
+});
+
+
 //starta servern
 app.listen(process.env.PORT, () => {
     console.log("Servern körs på port " + process.env.PORT);
