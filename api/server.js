@@ -103,16 +103,16 @@ app.get("/meny/:id", async (req, res) => {
 
 // Uppdatera
 app.put("/meny/:id", async (req, res) => {
-    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+    const { name, description } = req.body;
 
-    if (!companyname || !jobtitle || !location || !startdate || !description) {
+    if (!name || !description) {
         return res.status(400).json({ message: "Fyll i alla fält." });
     }
 
     try {
         const updated = await meny.findByIdAndUpdate(
             req.params.id,
-            { companyname, jobtitle, location, startdate, enddate, description },
+            { name, description },
             { returnDocument: 'after', runValidators: true }
         );
         if (!updated) return res.status(404).json({ message: "Hittades inte" });
@@ -124,15 +124,15 @@ app.put("/meny/:id", async (req, res) => {
 
 // Lägg till arbete
 app.post("/meny", async (req, res) => {
-    const { companyname, jobtitle, location, startdate, enddate, description } = req.body;
+    const { name, description } = req.body;
 
-    if (!companyname || !jobtitle || !location || !startdate || !enddate || !description) {
+    if (!name || !description) {
         return res.status(400).json({ message: "Fyll i alla fält." });
     }
 
     try {
         const newExperience = new meny(
-            { companyname, jobtitle, location, startdate, enddate, description }
+            { name, description }
         );
         const saved = await newExperience.save();
         res.status(201).json(saved);
