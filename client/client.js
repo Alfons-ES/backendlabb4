@@ -80,7 +80,10 @@ async function loaditems() {
 
 async function deleteitem(id) {
     if (confirm("Är du säker på att du vill ta bort?")) {
-        await fetch(`http://localhost:7777/meny/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:7777/meny/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+        });
         loaditems(); // refresh list
     }
 } //ta bort ett arbete, alltså itemt
@@ -109,7 +112,10 @@ form.addEventListener('submit', async (e) => {// när användaren klickar submit
     try {
         const res = await fetch('http://localhost:7777/meny', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            },
             body: JSON.stringify({ name, description })
         }); //konverterar till json och skickar iväg
 
@@ -147,7 +153,10 @@ async function submitUpdate() {
 
     const res = await fetch(`http://localhost:7777/meny/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        },
         body: JSON.stringify({ name, description })
     });
 

@@ -1,5 +1,5 @@
 body {
-    font-family: "Apple Chancery", "Lucida Handwriting", cursive;
+
     margin: 0;
     padding: 0;
     background-image: linear-gradient(to right, #008C45 0%, #008C45 50%, #CD212A 50%, #CD212A 100%);
@@ -14,10 +14,12 @@ main {
     min-height: 100vh;
 }
 
-main h1 {
+main h1,
+h2 {
     margin: 0;
     padding: 10px;
     text-align: center;
+    font-family: "Apple Chancery", "Lucida Handwriting", cursive;
 }
 
 header {

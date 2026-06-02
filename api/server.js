@@ -91,7 +91,7 @@ app.get('/api/protected', authMiddleware, (req, res) => {
 
 const meny = mongoose.model("meny", menySchema);
 
-// Alla jobb
+// Alla items
 app.get("/meny", async (req, res) => {
     try {
         const items = await meny.find();
@@ -101,8 +101,8 @@ app.get("/meny", async (req, res) => {
     }
 });
 
-// Ett jobb
-app.get("/meny/:id", async (req, res) => {
+// Ett item
+app.get("/meny/:id", authMiddleware, async (req, res) => {
     try {
         const item = await meny.findById(req.params.id);
         if (!item) return res.status(404).json({ error: "Not found" });
@@ -113,7 +113,7 @@ app.get("/meny/:id", async (req, res) => {
 });
 
 // Uppdatera
-app.put("/meny/:id", async (req, res) => {
+app.put("/meny/:id", authMiddleware, async (req, res) => {
     const { name, description } = req.body;
 
     if (!name || !description) {
@@ -133,8 +133,8 @@ app.put("/meny/:id", async (req, res) => {
     }
 });
 
-// Lägg till arbete
-app.post("/meny", async (req, res) => {
+// Lägg till item
+app.post("/meny", authMiddleware, async (req, res) => {
     const { name, description } = req.body;
 
     if (!name || !description) {
@@ -152,8 +152,8 @@ app.post("/meny", async (req, res) => {
     }
 });
 
-// Ta bort arbete
-app.delete("/meny/:id", async (req, res) => {
+// Ta bort item
+app.delete("/meny/:id", authMiddleware, async (req, res) => {
     try {
         const deleted = await meny.findByIdAndDelete(req.params.id);
         if (!deleted) return res.status(404).json({ message: "Hittades inte" });
