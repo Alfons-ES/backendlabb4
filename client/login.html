@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylemedarbetare.css">
+    <title>Pizza</title>
 </head>
 
 <body>
@@ -28,9 +29,9 @@
         <hr>
 
         <form id="itemform">
-            <h3>Lägg till ny Item</h3>
+            <h2>Lägg till ny Item</h2>
             <input type="text" id="name" placeholder="Namn" required>
-            <input id="description" placeholder="Beskrivning" required></input>
+            <input id="description" placeholder="Beskrivning" required>
             <button type="submit">Lägg till</button>
             <p id="message"></p>
         </form>
@@ -41,10 +42,10 @@
 
 
         <div id="edit-form-container" style="display: none;">
-            <h3>Redigera item</h3>
+            <h2>Redigera item</h2>
             <input type="hidden" id="edit-id">
             <input type="text" id="edit-name" placeholder="Namn">
-            <input id="edit-description" placeholder="Beskrivning"></input>
+            <input id="edit-description" placeholder="Beskrivning">
             <button onclick="submitUpdate()">Spara ändringar</button>
             <button onclick="closeEditForm()">Avbryt</button>
         </div>
