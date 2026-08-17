@@ -27,7 +27,8 @@ const User = mongoose.model('User', new mongoose.Schema({
 
 const menySchema = new mongoose.Schema({
     name: { type: String, required: true },
-    description: { type: String, required: true }
+    description: { type: String, required: true },
+    price: { type: String, required: true }
 });
 
 
@@ -114,16 +115,16 @@ app.get("/meny/:id", authMiddleware, async (req, res) => {
 
 // Uppdatera
 app.put("/meny/:id", authMiddleware, async (req, res) => {
-    const { name, description } = req.body;
+    const { name, description, price } = req.body;
 
-    if (!name || !description) {
+    if (!name || !description || !price) {
         return res.status(400).json({ message: "Fyll i alla fält." });
     }
 
     try {
         const updated = await meny.findByIdAndUpdate(
             req.params.id,
-            { name, description },
+            { name, description, price },
             { returnDocument: 'after', runValidators: true }
         );
         if (!updated) return res.status(404).json({ message: "Hittades inte" });
@@ -135,15 +136,15 @@ app.put("/meny/:id", authMiddleware, async (req, res) => {
 
 // Lägg till item
 app.post("/meny", authMiddleware, async (req, res) => {
-    const { name, description } = req.body;
+    const { name, description, price } = req.body;
 
-    if (!name || !description) {
+    if (!name || !description || !price) {
         return res.status(400).json({ message: "Fyll i alla fält." });
     }
 
     try {
         const newitem = new meny(
-            { name, description }
+            { name, description, price }
         );
         const saved = await newitem.save();
         res.status(201).json(saved);

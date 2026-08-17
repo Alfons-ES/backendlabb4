@@ -71,8 +71,9 @@ async function loaditems() {
         div.innerHTML = `
     <h3>${exp.name}</h3>
     <p>${exp.description}</p>
+    <p>${exp.price}</p>
     <button class="delete-btn" onclick="deleteitem('${exp._id}')">Ta bort</button>
-    <button class="edit-btn" onclick="openEditForm('${exp._id}', '${exp.name}', '${exp.description}')">Redigera</button>
+    <button class="edit-btn" onclick="openEditForm('${exp._id}', '${exp.name}', '${exp.description}', '${exp.price}')">Redigera</button>
 `;
         container.appendChild(div);
     });
@@ -100,9 +101,10 @@ form.addEventListener('submit', async (e) => {// när användaren klickar submit
 
     const name = document.getElementById('name').value; // hämtar alla inputfälts värden. 
     const description = document.getElementById('description').value;
+    const price = document.getElementById('price').value;
 
     //om det saknas något får man ett meddelande 
-    if (!name || !description) {
+    if (!name || !description || !price) {
         message.textContent = "Fyll i alla fält!";
         return;
     }
@@ -116,7 +118,7 @@ form.addEventListener('submit', async (e) => {// när användaren klickar submit
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token')
             },
-            body: JSON.stringify({ name, description })
+            body: JSON.stringify({ name, description, price })
         }); //konverterar till json och skickar iväg
 
         if (res.ok) { //om det funkade får man en alert. Vi resetar formen och stannar där om man vill fylla i mer
@@ -134,10 +136,11 @@ form.addEventListener('submit', async (e) => {// när användaren klickar submit
 
 
 
-function openEditForm(id, name, description) {
+function openEditForm(id, name, description, price) {
     document.getElementById('edit-id').value = id;
     document.getElementById('edit-name').value = name;
     document.getElementById('edit-description').value = description;
+    document.getElementById('edit-price').value = price;
     document.getElementById('edit-form-container').style.display = 'block';
 }
 
@@ -149,6 +152,7 @@ async function submitUpdate() {
     const id = document.getElementById('edit-id').value;
     const name = document.getElementById('edit-name').value;
     const description = document.getElementById('edit-description').value;
+    const price = document.getElementById('edit-price').value;
 
 
     const res = await fetch(`http://localhost:7777/meny/${id}`, {
@@ -157,7 +161,7 @@ async function submitUpdate() {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + sessionStorage.getItem('token')
         },
-        body: JSON.stringify({ name, description })
+        body: JSON.stringify({ name, description, price })
     });
 
     if (res.ok) {
