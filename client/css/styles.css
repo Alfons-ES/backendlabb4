@@ -1,5 +1,4 @@
 body {
-
     margin: 0;
     padding: 0;
     background-image: linear-gradient(to right, #008C45 0%, #008C45 50%, #CD212A 50%, #CD212A 100%);
@@ -27,10 +26,10 @@ h2 {
 }
 
 header {
-    background-color: rgb(59, 8, 8);
+    background-color: rgb(17, 1, 1);
     margin-top: 0;
     color: white;
-    padding: 40px;
+    padding: 20px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -69,4 +68,22 @@ button {
 
 #dashboard {
     display: none;
+}
+
+#big {
+    font-size: 26px;
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+    left: 10px;
+    color: white;
+    font-size: 18px
+}
+
+@media screen and (width < 1400px) {
+    footer {
+        color: black;
+    }
 }
